@@ -200,6 +200,22 @@
     .work-card p { color: var(--ink-soft); font-size: .94rem; }
     .work-card a { display: inline-block; margin-top: .6rem; color: var(--forest); font-size: .84rem; text-underline-offset: 4px; }
 
+    .conference-note {
+      display: grid; grid-template-columns: minmax(240px, .58fr) 1.42fr;
+      margin: 2.2rem 0 0; border: 1px solid var(--line); background: rgba(216, 224, 210, .22);
+    }
+    .conference-frame { padding: 12px; border-right: 1px solid var(--line); }
+    .conference-photo {
+      display: block; width: 100%; height: auto; aspect-ratio: 3 / 4;
+      object-fit: cover; border-radius: 18px 18px 6px 6px;
+      filter: saturate(.9) contrast(.97);
+    }
+    .conference-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(2rem, 6vw, 5rem); text-align: left; }
+    .conference-copy .number { color: var(--clay); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+    .conference-copy h3 { max-width: 630px; margin: 1rem 0; font-size: clamp(2.1rem, 4.3vw, 4rem); letter-spacing: -.025em; }
+    .conference-copy p { max-width: 590px; margin: 0; color: var(--ink-soft); }
+    .conference-copy a { width: fit-content; margin-top: 1.2rem; color: var(--forest); font-size: .86rem; text-underline-offset: 5px; }
+
     .direction { background: var(--forest); color: var(--paper); }
     .direction .kicker { color: var(--sage-soft); }
     .direction-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem, 9vw, 8rem); align-items: start; }
@@ -242,6 +258,9 @@
       .work-grid { grid-template-columns: 1fr; }
       .work-card { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; }
       .work-card h3 { margin-top: 2.5rem; }
+      .conference-note { grid-template-columns: 1fr; }
+      .conference-frame { width: min(74vw, 360px); margin: 0 auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .conference-copy { text-align: center; align-items: center; }
       .timeline-item { grid-template-columns: .65fr 1.35fr; }
       .timeline-item p { grid-column: 2; }
     }
@@ -375,10 +394,21 @@
         <article class="work-card reveal">
           <span class="number">03 · Earlier research</span>
           <h3>VisemeAR</h3>
-          <p>An undergraduate exploration of personalized visual feedback for Korean pronunciation using lightweight, browser-based AR. Accepted for an oral presentation at HCI Korea 2026.</p>
+          <p>An undergraduate exploration of personalized visual feedback for Korean pronunciation using lightweight, browser-based AR.</p>
           <a href="https://github.com/cyasiaseeya/VisemeAR" target="_blank" rel="noreferrer">Repository ↗</a>
         </article>
       </div>
+      <figure class="conference-note reveal">
+        <div class="conference-frame">
+          <img class="conference-photo" src="hci-korea-2026.webp" alt="Sia Lee at HCI Korea 2026 holding the conference program" width="750" height="1000" loading="lazy">
+        </div>
+        <figcaption class="conference-copy">
+          <span class="number">HCI Korea 2026</span>
+          <h3>From an undergraduate project to the conference floor.</h3>
+          <p>VisemeAR was accepted for an oral presentation at HCI Korea 2026.</p>
+          <a href="https://github.com/cyasiaseeya/VisemeAR" target="_blank" rel="noreferrer">See the project ↗</a>
+        </figcaption>
+      </figure>
     </section>
 
     <section class="direction" id="research">

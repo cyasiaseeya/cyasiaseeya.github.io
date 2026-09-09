@@ -220,6 +220,31 @@
     .contact h2 { max-width: 900px; margin: 0 auto 1.4rem; }
     .contact p { max-width: 620px; margin: 0 auto 2rem; color: var(--ink-soft); }
     .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
+    .card-trigger { background: transparent; color: var(--ink); cursor: pointer; }
+    .contact-card {
+      width: min(92vw, 560px); padding: 0; border: 0;
+      border-radius: 28px 28px 12px 12px; background: var(--paper); color: var(--ink);
+      box-shadow: 0 28px 90px rgba(23, 51, 38, .28);
+    }
+    .contact-card::backdrop { background: rgba(23, 51, 38, .58); backdrop-filter: blur(6px); }
+    .card-inner { padding: clamp(2rem, 6vw, 3.2rem); border: 1px solid var(--line); border-radius: inherit; text-align: left; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+    .card-monogram {
+      width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%;
+      background: var(--forest); color: var(--paper); font-family: var(--display); font-size: 1.25rem;
+    }
+    .card-close { border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+    .contact-card .mini-label { margin: 0 0 .65rem; color: var(--clay); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .contact-card h3 { margin: 0; font-size: clamp(2.7rem, 8vw, 4.4rem); }
+    .contact-card .card-role { max-width: none; margin: .45rem 0 1.35rem; color: var(--ink-soft); }
+    .card-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.7rem; }
+    .card-tags span { padding: .35rem .65rem; border: 1px solid var(--line); border-radius: 999px; color: var(--forest); font-size: .76rem; }
+    .card-details { display: grid; gap: .55rem; padding: 1.25rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .card-details a { width: fit-content; color: var(--ink-soft); font-size: .9rem; text-underline-offset: 4px; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.5rem; }
+    .card-actions button { background: transparent; cursor: pointer; }
+    .contact-card .copy-status { min-height: 1.4em; max-width: none; margin: .7rem 0 0; color: var(--forest); font-size: .78rem; }
+
     footer { padding: 1.5rem 0 2.2rem; border-top: 1px solid var(--line); }
     footer .shell { display: flex; justify-content: space-between; gap: 1rem; color: var(--ink-soft); font-size: .8rem; }
 
@@ -425,7 +450,34 @@
         <a class="button primary" href="mailto:cyasiaseeya@gmail.com">Email me</a>
         <a class="button arrow" href="https://www.linkedin.com/in/cyasiaseeya/" target="_blank" rel="noreferrer">LinkedIn</a>
         <a class="button arrow" href="https://github.com/cyasiaseeya" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="button card-trigger" id="card-trigger" type="button">Save my card</button>
       </div>
+
+      <dialog class="contact-card" id="contact-card" aria-labelledby="contact-card-title">
+        <div class="card-inner">
+          <div class="card-top">
+            <span class="card-monogram" aria-hidden="true">SL</span>
+            <button class="card-close" id="card-close" type="button" aria-label="Close digital card">Close</button>
+          </div>
+          <p class="mini-label">Digital card</p>
+          <h3 id="contact-card-title">Sia Lee</h3>
+          <p class="card-role">Tech Lead · Incoming M.Sc. Student</p>
+          <div class="card-tags" aria-label="Research interests">
+            <span>Adaptive AI</span><span>HRI</span><span>Shared Autonomy</span>
+          </div>
+          <div class="card-details">
+            <a href="mailto:cyasiaseeya@gmail.com">cyasiaseeya@gmail.com</a>
+            <a href="https://www.linkedin.com/in/cyasiaseeya/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a href="https://github.com/cyasiaseeya" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href="https://cyasiaseeya.github.io">cyasiaseeya.github.io</a>
+          </div>
+          <div class="card-actions">
+            <a class="button primary" href="sia-lee.vcf" download>Save contact</a>
+            <button class="button" id="copy-card-url" type="button">Copy website</button>
+          </div>
+          <p class="copy-status" id="copy-status" aria-live="polite"></p>
+        </div>
+      </dialog>
     </section>
   </main>
 
@@ -549,6 +601,27 @@
       }, { threshold: .12 });
       reveals.forEach((item) => observer.observe(item));
     }
+
+    const cardDialog = document.getElementById("contact-card");
+    const cardTrigger = document.getElementById("card-trigger");
+    const cardClose = document.getElementById("card-close");
+    const copyCardUrl = document.getElementById("copy-card-url");
+    const copyStatus = document.getElementById("copy-status");
+
+    cardTrigger.addEventListener("click", () => cardDialog.showModal());
+    cardClose.addEventListener("click", () => cardDialog.close());
+    cardDialog.addEventListener("click", (event) => {
+      if (event.target === cardDialog) cardDialog.close();
+    });
+    copyCardUrl.addEventListener("click", async () => {
+      const website = "https://cyasiaseeya.github.io";
+      try {
+        await navigator.clipboard.writeText(website);
+        copyStatus.textContent = "Website copied.";
+      } catch {
+        copyStatus.textContent = website;
+      }
+    });
 
     const header = document.getElementById("site-header");
     window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 8), { passive: true });

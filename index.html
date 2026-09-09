@@ -220,59 +220,6 @@
     .contact h2 { max-width: 900px; margin: 0 auto 1.4rem; }
     .contact p { max-width: 620px; margin: 0 auto 2rem; color: var(--ink-soft); }
     .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
-    .card-trigger { background: transparent; color: var(--ink); cursor: pointer; }
-    .contact-card {
-      width: min(94vw, 760px); max-width: none; padding: 0; border: 0;
-      background: transparent; color: var(--ink); overflow: visible;
-    }
-    .contact-card::backdrop { background: rgba(23, 51, 38, .62); backdrop-filter: blur(7px); }
-    .business-card {
-      position: relative; display: grid; grid-template-columns: .84fr 1.16fr;
-      width: 100%; aspect-ratio: 1.75; overflow: hidden;
-      border: 1px solid rgba(41, 37, 31, .16); border-radius: 14px;
-      background: var(--paper); box-shadow: 0 30px 90px rgba(18, 38, 29, .34);
-      text-align: left;
-    }
-    .business-card::after {
-      content: ""; position: absolute; inset: 10px; border: 1px solid rgba(154, 107, 79, .28);
-      border-radius: 8px; pointer-events: none;
-    }
-    .card-brand {
-      position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between;
-      padding: clamp(1.2rem, 4vw, 2.7rem); background: var(--forest); color: var(--paper);
-    }
-    .card-monogram {
-      width: clamp(42px, 7vw, 62px); aspect-ratio: 1; display: grid; place-items: center;
-      border: 1px solid rgba(243, 239, 230, .55); border-radius: 50%;
-      font-family: var(--display); font-size: clamp(1rem, 2.5vw, 1.4rem);
-    }
-    .card-brand h3 { margin: 0 0 .35rem; color: var(--paper); font-size: clamp(1.65rem, 5vw, 3.8rem); line-height: .95; }
-    .contact-card .card-role { max-width: 260px; margin: 0; color: rgba(243, 239, 230, .76); font-size: clamp(.62rem, 1.45vw, .9rem); line-height: 1.45; }
-    .contact-card .card-focus { max-width: 270px; margin: .8rem 0 0; color: var(--sage-soft); font-size: clamp(.52rem, 1.2vw, .74rem); letter-spacing: .05em; text-transform: uppercase; }
-    .card-info {
-      position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center;
-      padding: clamp(1.2rem, 4vw, 2.7rem);
-    }
-    .contact-card .card-kicker { max-width: none; margin: 0 0 1rem; color: var(--clay); font-size: clamp(.55rem, 1.2vw, .72rem); letter-spacing: .14em; text-transform: uppercase; }
-    .card-details { display: grid; gap: clamp(.45rem, 1.4vw, .85rem); padding: 0; }
-    .card-detail { display: grid; grid-template-columns: 62px 1fr; gap: .7rem; align-items: baseline; }
-    .card-detail span { color: var(--clay); font-size: clamp(.5rem, 1.1vw, .66rem); letter-spacing: .08em; text-transform: uppercase; }
-    .card-detail a { min-width: 0; color: var(--ink); font-size: clamp(.57rem, 1.35vw, .84rem); line-height: 1.25; text-decoration: none; overflow-wrap: anywhere; }
-    .card-detail a:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .card-toolbar { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; margin-top: 1rem; }
-    .card-toolbar .button { background: var(--paper); cursor: pointer; }
-    .card-toolbar .primary { background: var(--forest); }
-    .card-close { border-color: rgba(243, 239, 230, .6) !important; background: transparent !important; color: var(--paper) !important; }
-    .contact-card .copy-status { min-height: 1.4em; max-width: none; margin: .55rem 0 0; color: var(--paper); font-size: .78rem; text-align: center; }
-    @media (max-width: 520px) {
-      .contact-card { width: calc(100vw - 18px); }
-      .business-card { grid-template-columns: .9fr 1.1fr; border-radius: 10px; }
-      .business-card::after { inset: 6px; }
-      .card-brand, .card-info { padding: .9rem; }
-      .card-detail { grid-template-columns: 42px 1fr; gap: .35rem; }
-      .contact-card .card-kicker { margin-bottom: .55rem; }
-    }
-
     footer { padding: 1.5rem 0 2.2rem; border-top: 1px solid var(--line); }
     footer .shell { display: flex; justify-content: space-between; gap: 1rem; color: var(--ink-soft); font-size: .8rem; }
 
@@ -478,36 +425,8 @@
         <a class="button primary" href="mailto:cyasiaseeya@gmail.com">Email me</a>
         <a class="button arrow" href="https://www.linkedin.com/in/cyasiaseeya/" target="_blank" rel="noreferrer">LinkedIn</a>
         <a class="button arrow" href="https://github.com/cyasiaseeya" target="_blank" rel="noreferrer">GitHub</a>
-        <button class="button card-trigger" id="card-trigger" type="button">Save my card</button>
       </div>
 
-      <dialog class="contact-card" id="contact-card" aria-labelledby="contact-card-title">
-        <div class="business-card">
-          <div class="card-brand">
-            <span class="card-monogram" aria-hidden="true">SL</span>
-            <div>
-              <h3 id="contact-card-title">Sia Lee</h3>
-              <p class="card-role">Tech Lead · Incoming M.Sc. Student</p>
-              <p class="card-focus">Adaptive AI · HRI · Shared Autonomy</p>
-            </div>
-          </div>
-          <div class="card-info">
-            <p class="card-kicker">Contact</p>
-            <div class="card-details">
-              <div class="card-detail"><span>Email</span><a href="mailto:cyasiaseeya@gmail.com">cyasiaseeya@gmail.com</a></div>
-              <div class="card-detail"><span>Web</span><a href="https://cyasiaseeya.github.io">cyasiaseeya.github.io</a></div>
-              <div class="card-detail"><span>LinkedIn</span><a href="https://www.linkedin.com/in/cyasiaseeya/" target="_blank" rel="noreferrer">/in/cyasiaseeya</a></div>
-              <div class="card-detail"><span>GitHub</span><a href="https://github.com/cyasiaseeya" target="_blank" rel="noreferrer">@cyasiaseeya</a></div>
-            </div>
-          </div>
-        </div>
-        <div class="card-toolbar">
-          <a class="button primary" href="sia-lee.vcf" download>Save contact</a>
-          <button class="button" id="copy-card-url" type="button">Copy website</button>
-          <button class="button card-close" id="card-close" type="button" aria-label="Close business card">Close</button>
-        </div>
-        <p class="copy-status" id="copy-status" aria-live="polite"></p>
-      </dialog>
     </section>
   </main>
 
@@ -631,27 +550,6 @@
       }, { threshold: .12 });
       reveals.forEach((item) => observer.observe(item));
     }
-
-    const cardDialog = document.getElementById("contact-card");
-    const cardTrigger = document.getElementById("card-trigger");
-    const cardClose = document.getElementById("card-close");
-    const copyCardUrl = document.getElementById("copy-card-url");
-    const copyStatus = document.getElementById("copy-status");
-
-    cardTrigger.addEventListener("click", () => cardDialog.showModal());
-    cardClose.addEventListener("click", () => cardDialog.close());
-    cardDialog.addEventListener("click", (event) => {
-      if (event.target === cardDialog) cardDialog.close();
-    });
-    copyCardUrl.addEventListener("click", async () => {
-      const website = "https://cyasiaseeya.github.io";
-      try {
-        await navigator.clipboard.writeText(website);
-        copyStatus.textContent = "Website copied.";
-      } catch {
-        copyStatus.textContent = website;
-      }
-    });
 
     const header = document.getElementById("site-header");
     window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 8), { passive: true });

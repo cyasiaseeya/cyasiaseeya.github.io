@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sia Lee builds personalized AI systems that adapt to people, support learning, and move toward shared autonomy.">
+  <meta name="theme-color" content="#f3efe6">
+  <title>Sia Lee | Adaptive AI and Human-Centered Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f3efe6;
+      --paper-deep: #e8e0d2;
+      --ink: #29251f;
+      --ink-soft: #655f55;
+      --forest: #274c3a;
+      --forest-deep: #173326;
+      --sage: #8fa58c;
+      --sage-soft: #d8e0d2;
+      --clay: #9a6b4f;
+      --sand: #d8cbb8;
+      --line: rgba(41, 37, 31, 0.17);
+      --display: "Newsreader", Georgia, serif;
+      --sans: "DM Sans", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    :focus-visible { outline: 3px solid var(--clay); outline-offset: 4px; }
+    .skip-link {
+      position: fixed; left: 1rem; top: 1rem; z-index: 100;
+      padding: .6rem 1rem; background: var(--ink); color: var(--paper);
+      transform: translateY(-180%); transition: transform .2s;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(243, 239, 230, .88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .25s;
+    }
+    header.scrolled { border-color: var(--line); }
+    nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .mark { font-family: var(--display); font-size: 1.55rem; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 1.6rem; }
+    .nav-links a { font-size: .88rem; text-decoration: none; color: var(--ink-soft); }
+    .nav-links a:hover { color: var(--forest); }
+    .nav-contact { padding: .52rem .9rem; border: 1px solid var(--forest); color: var(--forest) !important; border-radius: 999px; }
+
+    main { overflow: hidden; }
+    .hero {
+      min-height: calc(100vh - 74px);
+      display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(2rem, 7vw, 7rem);
+      align-items: center; padding: clamp(4rem, 10vh, 8rem) 0;
+    }
+    .eyebrow { margin: 0 0 1rem; color: var(--forest); font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.04; }
+    h1 { margin: 0; font-size: clamp(3.5rem, 8vw, 7.2rem); letter-spacing: -.045em; }
+    h1 em { color: var(--forest); font-weight: 400; }
+    .hero-copy { max-width: 650px; margin: 1.6rem 0 0; color: var(--ink-soft); font-size: clamp(1.05rem, 1.5vw, 1.2rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      min-height: 46px; padding: .68rem 1.05rem; border-radius: 999px;
+      border: 1px solid var(--ink); text-decoration: none; font-size: .9rem;
+      transition: transform .2s, background-color .2s, color .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { background: var(--forest); border-color: var(--forest); color: var(--paper); }
+    .button.primary:hover { background: var(--forest-deep); }
+    .button.arrow::after { content: "↗"; }
+
+    .system-visual {
+      --mx: 0px; --my: 0px;
+      position: relative; width: min(100%, 500px); aspect-ratio: 1;
+      justify-self: end; display: grid; place-items: center;
+    }
+    .system-visual::before, .system-visual::after {
+      content: ""; position: absolute; border-radius: 50%; pointer-events: none;
+    }
+    .system-visual::before { inset: 9%; border: 1px solid var(--sand); }
+    .system-visual::after { inset: 25%; border: 1px dashed var(--sage); opacity: .7; animation: spin 30s linear infinite; }
+    .core {
+      position: relative; z-index: 2; width: 42%; aspect-ratio: 1; border-radius: 50%;
+      display: grid; place-items: center; text-align: center; padding: 2rem;
+      background: var(--forest); color: var(--paper);
+      transform: translate(calc(var(--mx) * .3), calc(var(--my) * .3));
+      transition: transform .35s ease-out;
+      box-shadow: 0 22px 50px rgba(39, 76, 58, .18);
+    }
+    .core span { display: block; font-family: var(--display); font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.08; }
+    .orbit-node {
+      position: absolute; z-index: 3; width: 84px; height: 84px; border-radius: 50%;
+      border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+      display: grid; place-items: center; padding: .5rem; cursor: pointer;
+      font-size: .78rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+      transition: background .2s, color .2s, transform .25s, border-color .2s;
+    }
+    .orbit-node:hover, .orbit-node[aria-pressed="true"] { background: var(--clay); color: #fff; border-color: var(--clay); transform: scale(1.06); }
+    .node-1 { top: 2%; left: 41%; }
+    .node-2 { top: 41%; right: 0; }
+    .node-3 { bottom: 1%; left: 41%; }
+    .node-4 { top: 41%; left: 0; }
+    .visual-caption {
+      position: absolute; top: calc(100% + .75rem); left: 0; right: 0;
+      margin: 0; text-align: center; color: var(--ink-soft); font-size: .78rem;
+    }
+
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
+    .marquee-track { display: flex; width: max-content; animation: drift 28s linear infinite; }
+    .marquee-track span { padding: .9rem 2.3rem; color: var(--ink-soft); font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+    .marquee-track span::before { content: "✦"; color: var(--clay); margin-right: 2.3rem; }
+
+    section { padding: clamp(5rem, 10vw, 9rem) 0; }
+    .about-grid {
+      display: grid; grid-template-columns: .52fr 1.48fr; gap: clamp(2.5rem, 8vw, 7rem);
+      align-items: center;
+    }
+    .portrait-wrap { position: relative; width: 100%; max-width: 280px; margin: 0; justify-self: center; }
+    .portrait-wrap::before {
+      content: ""; position: absolute; inset: 14px -14px -14px 14px;
+      border: 1px solid var(--clay); border-radius: 28px 28px 10px 10px;
+      transition: transform .35s ease;
+    }
+    .portrait-wrap:hover::before { transform: translate(5px, 5px); }
+    .portrait {
+      position: relative; display: block; width: 100%; height: auto;
+      border-radius: 28px 28px 10px 10px;
+      filter: saturate(.86) contrast(.96);
+    }
+    .portrait-note {
+      position: absolute; right: -2rem; bottom: 1.45rem; z-index: 2;
+      padding: .72rem 1rem; background: var(--paper); border: 1px solid var(--line);
+      color: var(--forest); font-size: .9rem; letter-spacing: .065em; text-transform: uppercase;
+      transform: rotate(-3deg); white-space: nowrap;
+    }
+    .about-copy h2 { margin-bottom: 1.4rem; }
+    .about-copy > p { max-width: 680px; color: var(--ink-soft); font-size: 1.05rem; }
+    .about-notes { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 2.4rem; border-top: 1px solid var(--line); }
+    .about-note { padding: 1.2rem 1rem 0 0; }
+    .about-note span { display: block; margin-bottom: .35rem; color: var(--clay); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+    .about-note strong { font-family: var(--display); font-size: 1.2rem; font-weight: 400; line-height: 1.2; }
+    .personal-panel {
+      display: grid; grid-template-columns: .42fr .58fr;
+      min-height: 420px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .personal-tabs { border-right: 1px solid var(--line); }
+    .personal-tab {
+      width: 100%; min-height: 68px; display: flex; align-items: center; gap: 1rem;
+      padding: .9rem 1.25rem; border: 0; border-bottom: 1px solid var(--line);
+      background: transparent; color: var(--ink-soft); text-align: left; cursor: pointer;
+      transition: background .2s, color .2s, padding-left .2s;
+    }
+    .personal-tab:last-child { border-bottom: 0; }
+    .personal-tab span { color: var(--clay); font-size: .7rem; }
+    .personal-tab:hover { color: var(--forest); padding-left: 1.55rem; }
+    .personal-tab[aria-selected="true"] { background: var(--sage-soft); color: var(--forest-deep); }
+    .personal-content {
+      position: relative; display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(2rem, 6vw, 5rem); overflow: hidden;
+    }
+    .personal-content::after {
+      content: attr(data-mark); position: absolute; right: 1rem; bottom: -3.5rem;
+      color: rgba(39, 76, 58, .07); font-family: var(--display); font-size: clamp(9rem, 20vw, 16rem);
+      line-height: 1; pointer-events: none;
+    }
+    .personal-content .mini-label { position: relative; z-index: 1; color: var(--clay); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .personal-content h3 { position: relative; z-index: 1; margin: .8rem 0 1rem; max-width: 650px; font-size: clamp(2.3rem, 5vw, 4.4rem); letter-spacing: -.03em; }
+    .personal-content p { position: relative; z-index: 1; max-width: 650px; margin: 0; color: var(--ink-soft); }
+    .personal-links { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 1.2rem; }
+    .personal-links[hidden] { display: none; }
+    .personal-link { width: fit-content; color: var(--forest); font-size: .88rem; text-underline-offset: 5px; }
+    .section-head { display: grid; grid-template-columns: .65fr 1.35fr; gap: 2rem; align-items: start; margin-bottom: 3rem; }
+    .kicker { color: var(--forest); font-size: .78rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    h2 { margin: 0; max-width: 820px; font-size: clamp(2.5rem, 5vw, 4.8rem); letter-spacing: -.035em; }
+
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .work-card { min-height: 380px; padding: 2rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .25s, transform .25s; }
+    .work-card:last-child { border-right: 0; }
+    .work-card:hover { background: rgba(216, 224, 210, .58); transform: translateY(-5px); }
+    .work-card .number { color: var(--clay); font-size: .78rem; }
+    .work-card h3 { margin: 5rem 0 1rem; font-size: 2rem; }
+    .work-card p { color: var(--ink-soft); font-size: .94rem; }
+    .work-card a { display: inline-block; margin-top: .6rem; color: var(--forest); font-size: .84rem; text-underline-offset: 4px; }
+
+    .direction { background: var(--forest); color: var(--paper); }
+    .direction .kicker { color: var(--sage-soft); }
+    .direction-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem, 9vw, 8rem); align-items: start; }
+    .direction h2 { position: sticky; top: 120px; }
+    .principle { display: grid; grid-template-columns: 50px 1fr; gap: 1rem; padding: 2rem 0; border-top: 1px solid rgba(243, 239, 230, .25); }
+    .principle:last-child { border-bottom: 1px solid rgba(243, 239, 230, .25); }
+    .principle .index { color: var(--sage-soft); font-size: .8rem; }
+    .principle h3 { margin: 0 0 .7rem; font-size: 2rem; }
+    .principle p { margin: 0; color: rgba(243, 239, 230, .75); }
+
+    .timeline { border-top: 1px solid var(--line); }
+    .timeline-item { display: grid; grid-template-columns: .65fr .8fr 1.55fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
+    .timeline-item .date, .timeline-item p { color: var(--ink-soft); }
+    .timeline-item h3 { margin: 0; font-size: 1.55rem; }
+    .timeline-item p { margin: 0; font-size: .94rem; }
+
+    .contact { text-align: center; }
+    .contact h2 { max-width: 900px; margin: 0 auto 1.4rem; }
+    .contact p { max-width: 620px; margin: 0 auto 2rem; color: var(--ink-soft); }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
+    footer { padding: 1.5rem 0 2.2rem; border-top: 1px solid var(--line); }
+    footer .shell { display: flex; justify-content: space-between; gap: 1rem; color: var(--ink-soft); font-size: .8rem; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes drift { to { transform: translateX(-50%); } }
+
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .system-visual { justify-self: center; width: min(90vw, 460px); }
+      .section-head, .direction-grid, .about-grid { grid-template-columns: 1fr; }
+      .portrait-wrap { width: min(64vw, 280px); }
+      .personal-panel { grid-template-columns: 1fr; }
+      .personal-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-right: 0; border-bottom: 1px solid var(--line); overflow-x: auto; }
+      .personal-tab { min-width: 118px; border-bottom: 0; border-right: 1px solid var(--line); justify-content: center; }
+      .personal-tab:last-child { border-right: 0; }
+      .personal-tab:hover { padding-left: 1.25rem; }
+      .direction h2 { position: static; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; }
+      .work-card h3 { margin-top: 2.5rem; }
+      .timeline-item { grid-template-columns: .65fr 1.35fr; }
+      .timeline-item p { grid-column: 2; }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 28px, 1180px); }
+      .nav-links a:not(.nav-contact) { display: none; }
+      h1 { font-size: clamp(3.4rem, 19vw, 5.2rem); }
+      .system-visual { width: 100%; }
+      .orbit-node { width: 70px; height: 70px; font-size: .68rem; }
+      .core { width: 40%; padding: 1rem; }
+      .visual-caption { bottom: 13%; }
+      .portrait-note { right: -.35rem; font-size: .82rem; }
+      .about-notes { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: .4rem; }
+      .timeline-item p { grid-column: 1; }
+      footer .shell { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header">
+    <nav class="shell" aria-label="Main navigation">
+      <a class="mark" href="#top" aria-label="Sia Lee, home">Sia Lee</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#personal">Personal</a>
+        <a href="#work">Work</a>
+        <a href="#research">Research</a>
+        <a href="#experience">Experience</a>
+        <a class="nav-contact" href="#contact">Say hello</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top">
+      <div class="reveal">
+        <p class="eyebrow">Adaptive AI · Human-centered systems</p>
+        <h1>Building AI that learns <em>with people.</em></h1>
+        <p class="hero-copy">I’m Sia, a tech lead and incoming M.Sc. student in Intelligent Adaptive Systems. I’m interested in how AI can adapt from limited interaction, give useful support under uncertainty, and gradually step back as people gain skill.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">Selected work</a>
+          <a class="button arrow" href="https://github.com/cyasiaseeya" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <div class="system-visual reveal" id="system-visual" role="group" aria-label="Interactive adaptive assistance loop">
+        <div class="core" aria-live="polite"><span id="core-copy">Learn from the person, not the average.</span></div>
+        <button class="orbit-node node-1" data-stage="observe" aria-pressed="true">Observe</button>
+        <button class="orbit-node node-2" data-stage="adapt" aria-pressed="false">Adapt</button>
+        <button class="orbit-node node-3" data-stage="assist" aria-pressed="false">Assist</button>
+        <button class="orbit-node node-4" data-stage="fade" aria-pressed="false">Fade</button>
+        <p class="visual-caption">Choose a stage to explore the loop.</p>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Personalized AI</span><span>Shared autonomy</span><span>Human-centered computing</span><span>Adaptive feedback</span><span>Embodied learning</span>
+        <span>Personalized AI</span><span>Shared autonomy</span><span>Human-centered computing</span><span>Adaptive feedback</span><span>Embodied learning</span>
+      </div>
+    </div>
+
+    <section id="about" class="shell about-grid">
+      <figure class="portrait-wrap reveal">
+        <img class="portrait" src="profile.webp" alt="Portrait of Sia Lee in a warm café setting" width="988" height="1000">
+        <figcaption class="portrait-note">India ↔ Seoul → Hamburg</figcaption>
+      </figure>
+      <div class="about-copy reveal">
+        <p class="eyebrow">A little about me</p>
+        <h2>My work has always started with how people learn.</h2>
+        <p>I’ve taught English, mentored software students, built education products, and studied how people respond to AI feedback. Those experiences are why I care about systems that adapt to individuals without taking over.</p>
+        <p>I spent a total of 14 years in India, moving back and forth between India and Korea, and graduated high school there. Hamburg is the next stop.</p>
+        <div class="about-notes" aria-label="A few quick facts">
+          <div class="about-note"><span>Next chapter</span><strong>Hamburg, October 2026</strong></div>
+          <div class="about-note"><span>Between homes</span><strong>14 years in India</strong></div>
+          <div class="about-note"><span>Education</span><strong>High school in India, university in Korea</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="personal" class="shell">
+      <div class="section-head reveal">
+        <span class="kicker">Off the clock</span>
+        <h2>A few things that explain me better than another professional bio.</h2>
+      </div>
+      <div class="personal-panel reveal">
+        <div class="personal-tabs" role="tablist" aria-label="Personal notes">
+          <button class="personal-tab" id="tab-ranked" type="button" role="tab" aria-selected="true" aria-controls="personal-content" data-personal="ranked"><span>01</span> Ranked</button>
+          <button class="personal-tab" id="tab-stories" type="button" role="tab" aria-selected="false" aria-controls="personal-content" data-personal="stories"><span>02</span> Stories</button>
+          <button class="personal-tab" id="tab-music" type="button" role="tab" aria-selected="false" aria-controls="personal-content" data-personal="music"><span>03</span> Music</button>
+          <button class="personal-tab" id="tab-practice" type="button" role="tab" aria-selected="false" aria-controls="personal-content" data-personal="practice"><span>04</span> Practice</button>
+          <button class="personal-tab" id="tab-deadpan" type="button" role="tab" aria-selected="false" aria-controls="personal-content" data-personal="deadpan"><span>05</span> Deadpan</button>
+          <button class="personal-tab" id="tab-creator" type="button" role="tab" aria-selected="false" aria-controls="personal-content" data-personal="creator"><span>06</span> Creator</button>
+        </div>
+        <div class="personal-content" id="personal-content" role="tabpanel" aria-labelledby="tab-ranked" data-mark="I">
+          <span class="mini-label" id="personal-label">League of Legends</span>
+          <h3 id="personal-title">Gold is the goal. Eventually.</h3>
+          <p id="personal-body">I only play ranked, usually as Lux or Mel. I have been moving between Bronze and Silver for years, but I am still trying very hard to reach Gold.</p>
+          <div class="personal-links" id="personal-links" hidden>
+            <a class="personal-link" href="https://www.youtube.com/@SiasPatchNotes" target="_blank" rel="noreferrer">YouTube ↗</a>
+            <a class="personal-link" href="https://www.instagram.com/siaspatchnotes/" target="_blank" rel="noreferrer">Instagram ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="shell">
+      <div class="section-head reveal">
+        <span class="kicker">Selected work</span>
+        <h2>Building, evaluating, and learning from real systems.</h2>
+      </div>
+      <div class="work-grid">
+        <article class="work-card reveal">
+          <span class="number">01 · Product</span>
+          <h3>AI learning tools</h3>
+          <p>Leading the development of an English-learning voicebot at Ark Academy, including architecture, conversation design, workflow automation, deployment, and iteration.</p>
+        </article>
+        <article class="work-card reveal">
+          <span class="number">02 · Evaluation</span>
+          <h3>Human feedback for AI</h3>
+          <p>Evaluating prompts and model outputs in programming and data science, with experience in instruction tuning and human preference evaluation.</p>
+        </article>
+        <article class="work-card reveal">
+          <span class="number">03 · Earlier research</span>
+          <h3>VisemeAR</h3>
+          <p>An undergraduate exploration of personalized visual feedback for Korean pronunciation using lightweight, browser-based AR. Accepted for an oral presentation at HCI Korea 2026.</p>
+          <a href="https://github.com/cyasiaseeya/VisemeAR" target="_blank" rel="noreferrer">Repository ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="direction" id="research">
+      <div class="shell direction-grid">
+        <div>
+          <span class="kicker">Research direction</span>
+          <h2>Personalized and uncertainty-aware shared autonomy.</h2>
+        </div>
+        <div>
+          <article class="principle reveal">
+            <span class="index">01</span>
+            <div><h3>Learn quickly</h3><p>How much interaction does a system need before a personal model becomes more useful than a population model?</p></div>
+          </article>
+          <article class="principle reveal">
+            <span class="index">02</span>
+            <div><h3>Act while uncertain</h3><p>How should an assistive system behave before it fully understands a person’s intent, ability, or preferences?</p></div>
+          </article>
+          <article class="principle reveal">
+            <span class="index">03</span>
+            <div><h3>Know when to step back</h3><p>Support should change as people change. I’m interested in assistance that fades, transfers control, and encourages independence.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="shell">
+      <div class="section-head reveal">
+        <span class="kicker">Experience</span>
+        <h2>A path through software, learning, and human-centered AI.</h2>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item reveal"><span class="date">Oct 2026</span><h3>University of Hamburg</h3><p>Incoming M.Sc. student in Intelligent Adaptive Systems.</p></article>
+        <article class="timeline-item reveal"><span class="date">2026 · Present</span><h3>Ark Academy</h3><p>Tech Lead for AI-powered educational tools, product research, usability testing, and full-stack delivery.</p></article>
+        <article class="timeline-item reveal"><span class="date">2025 · Present</span><h3>FLITTO Inc.</h3><p>AI Data Evaluator working across STEM, code, and human preference evaluation.</p></article>
+        <article class="timeline-item reveal"><span class="date">2024 · 2025</span><h3>Sejong University</h3><p>Research assistant, Python teaching assistant, and academic mentor in computing courses.</p></article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact shell">
+      <p class="eyebrow">Let’s talk</p>
+      <h2>I’m always happy to meet people working on adaptive AI, HRI, and tools that help people learn.</h2>
+      <p>If you’re exploring a related research question or building something thoughtful in this space, I’d love to hear from you.</p>
+      <div class="contact-links">
+        <a class="button primary" href="mailto:cyasiaseeya@gmail.com">Email me</a>
+        <a class="button arrow" href="https://www.linkedin.com/in/cyasiaseeya/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="button arrow" href="https://github.com/cyasiaseeya" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell"><span>© <span id="year"></span> Sia Lee</span><span>Designed around curiosity, adaptation, and growth.</span></div>
+  </footer>
+
+  <script>
+    const stageCopy = {
+      observe: "Learn from the person, not the average.",
+      adapt: "Update carefully as new signals arrive.",
+      assist: "Offer support that respects uncertainty.",
+      fade: "Step back as confidence and skill grow."
+    };
+
+    const personalNotes = {
+      ranked: {
+        label: "League of Legends",
+        title: "Gold is the goal. Eventually.",
+        body: "I only play ranked, usually as Lux or Mel. I have been moving between Bronze and Silver for years, but I am still trying very hard to reach Gold.",
+        mark: "I"
+      },
+      stories: {
+        label: "Books and film",
+        title: "The classics won.",
+        body: "My favourite book is The Great Gatsby. My favourite film is The Godfather. I also just genuinely like reading and watching movies.",
+        mark: "II"
+      },
+      music: {
+        label: "In my headphones",
+        title: "R&B, hip-hop, and one song on repeat.",
+        body: "Tyler, the Creator is a favourite. Right now, I am especially obsessed with a song called The Plea.",
+        mark: "III"
+      },
+      practice: {
+        label: "What I am working on",
+        title: "Trying to become a good person.",
+        body: "I think everything I am doing is ultimately about being able to die well at the end. A little grim, maybe, but I mean it.",
+        mark: "IV"
+      },
+      deadpan: {
+        label: "A recurring misunderstanding",
+        title: "Apparently, I am funny.",
+        body: "I never joke. I really do not. People still assume I am joking until I prove them wrong.",
+        mark: "V"
+      },
+      creator: {
+        label: "Sia’s Patch Notes",
+        title: "Famous influencer. Pending consistency.",
+        body: "I have a secret dream of becoming a famous influencer. The main obstacle is that I am kind of lazy, and social media management seems to require diligence. I now have a YouTube channel and an Instagram account, so this is technically a work in progress.",
+        mark: "VI"
+      }
+    };
+
+    const visual = document.getElementById("system-visual");
+    const coreCopy = document.getElementById("core-copy");
+    const stageButtons = [...document.querySelectorAll(".orbit-node")];
+
+    stageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        stageButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        coreCopy.textContent = stageCopy[button.dataset.stage];
+      });
+    });
+
+    const personalTabs = [...document.querySelectorAll(".personal-tab")];
+    const personalPanel = document.getElementById("personal-content");
+    const personalLabel = document.getElementById("personal-label");
+    const personalTitle = document.getElementById("personal-title");
+    const personalBody = document.getElementById("personal-body");
+    const personalLinks = document.getElementById("personal-links");
+
+    const selectPersonalNote = (button) => {
+      const note = personalNotes[button.dataset.personal];
+      personalTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab === button)));
+      personalPanel.setAttribute("aria-labelledby", button.id);
+      personalPanel.dataset.mark = note.mark;
+      personalLabel.textContent = note.label;
+      personalTitle.textContent = note.title;
+      personalBody.textContent = note.body;
+      personalLinks.hidden = button.dataset.personal !== "creator";
+    };
+
+    personalTabs.forEach((button, index) => {
+      button.addEventListener("click", () => selectPersonalNote(button));
+      button.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+        event.preventDefault();
+        const forward = event.key === "ArrowRight" || event.key === "ArrowDown";
+        const next = (index + (forward ? 1 : -1) + personalTabs.length) % personalTabs.length;
+        personalTabs[next].focus();
+        selectPersonalNote(personalTabs[next]);
+      });
+    });
+
+    if (window.matchMedia("(pointer: fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      visual.addEventListener("pointermove", (event) => {
+        const rect = visual.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width - .5) * 22;
+        const y = ((event.clientY - rect.top) / rect.height - .5) * 22;
+        visual.style.setProperty("--mx", `${x}px`);
+        visual.style.setProperty("--my", `${y}px`);
+      });
+      visual.addEventListener("pointerleave", () => {
+        visual.style.setProperty("--mx", "0px");
+        visual.style.setProperty("--my", "0px");
+      });
+    }
+
+    const reveals = document.querySelectorAll(".reveal");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      reveals.forEach((item) => item.classList.add("visible"));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+      reveals.forEach((item) => observer.observe(item));
+    }
+
+    const header = document.getElementById("site-header");
+    window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 8), { passive: true });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

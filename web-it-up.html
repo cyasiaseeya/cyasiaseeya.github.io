@@ -16,9 +16,9 @@
     main{padding:clamp(4rem,9vw,8rem) 0}.content{width:min(900px,100%)}.back,.text-link{color:var(--forest);text-underline-offset:5px}.eyebrow{margin:3rem 0 .6rem;color:var(--forest);font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05}h1{margin:.5rem 0 1.4rem;font-size:clamp(3.8rem,9vw,7rem);letter-spacing:-.045em}h2{margin:0 0 1.2rem;font-size:clamp(2.3rem,5vw,4rem);letter-spacing:-.03em}h3{margin:.3rem 0 .7rem;font-size:1.65rem}p{max-width:760px;color:var(--soft)}.lede{font-size:clamp(1.08rem,2vw,1.25rem)}
     .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}.button{display:inline-flex;padding:.68rem 1.05rem;border:1px solid var(--forest);border-radius:999px;background:var(--forest);color:var(--paper);text-decoration:none;font-size:.9rem}
     .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:4rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.fact{padding:1.35rem 1rem 1.5rem 0}.fact span{display:block;color:var(--clay);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}.fact strong{display:block;margin-top:.3rem;font:1.3rem/1.2 var(--display)}
-    .case-section{padding:clamp(4rem,8vw,7rem) 0;border-bottom:1px solid var(--line)}.split{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,8vw,7rem)}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:2.5rem;background:var(--line);border:1px solid var(--line)}.card{padding:1.7rem;background:var(--paper)}.card p{margin-bottom:0;font-size:.94rem}.privacy{margin-top:2.5rem;padding:1.7rem;background:var(--sage-soft)}.privacy h3{margin-top:0}.privacy p{margin-bottom:0;color:var(--ink)}
+    .case-section{padding:clamp(4rem,8vw,7rem) 0;border-bottom:1px solid var(--line)}.split{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,8vw,7rem)}.project-visual{margin:4rem 0 0}.project-visual img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:20px}.project-visual figcaption{margin-top:.8rem;color:var(--soft);font-size:.82rem}.feature-layout{display:grid;grid-template-columns:minmax(220px,.68fr) 1.32fr;gap:clamp(2rem,6vw,5rem);align-items:start;margin-top:2.5rem}.control-shot{margin:0}.control-shot img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:18px}.control-shot figcaption{margin-top:.7rem;color:var(--soft);font-size:.82rem}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.card{padding:1.7rem;background:var(--paper)}.card p{margin-bottom:0;font-size:.94rem}.privacy{margin-top:2.5rem;padding:1.7rem;background:var(--sage-soft)}.privacy h3{margin-top:0}.privacy p{margin-bottom:0;color:var(--ink)}
     footer{padding:1.5rem 0 2.2rem;border-top:1px solid var(--line);color:var(--soft);font-size:.8rem}
-    @media(max-width:760px){.shell{width:min(100% - 28px,1180px)}.nav-links a:not(.nav-contact){display:none}.split,.cards,.facts{grid-template-columns:1fr}.fact{border-bottom:1px solid var(--line)}}
+    @media(max-width:760px){.shell{width:min(100% - 28px,1180px)}.nav-links a:not(.nav-contact){display:none}.split,.cards,.facts,.feature-layout{grid-template-columns:1fr}.control-shot{width:min(100%,420px);margin-inline:auto}.fact{border-bottom:1px solid var(--line)}}
   </style>
 </head>
 <body>
@@ -49,6 +49,11 @@
         <div class="fact"><span>Duration</span><strong>1 minute to 3 hours</strong></div>
       </div>
 
+      <figure class="project-visual">
+        <img src="web-it-up-meet.webp" alt="Web It Up filling Sia's Google Meet camera with animated spider webs" width="1600" height="1040">
+        <figcaption>The web gradually fills the outgoing camera view, so the effect is visible to everyone in the call.</figcaption>
+      </figure>
+
       <section class="case-section split">
         <div><p class="eyebrow">The idea</p><h2>A timer you feel, not one you watch.</h2></div>
         <div><p>Long calls make time easy to lose. Web It Up turns elapsed time into a slow visual change instead of adding another clock, alert, or interruption.</p><p>The spider starts near the top of the frame, builds silk from the corners and edges toward the center, and keeps moving once the web is complete.</p></div>
@@ -57,11 +62,17 @@
       <section class="case-section">
         <p class="eyebrow">What it does</p>
         <h2>Simple controls with a little personality.</h2>
-        <div class="cards">
-          <article class="card"><h3>Choose the pace</h3><p>Set how quickly the web fills the screen, from a one-minute demo to a three-hour call.</p></article>
-          <article class="card"><h3>Wave to reset</h3><p>Wave at the camera to clear the silk and start again, or use the manual reset in the toolbar.</p></article>
-          <article class="card"><h3>Control the effect</h3><p>Turn Web It Up on or off and adjust the timing from a compact Chrome extension popup.</p></article>
-          <article class="card"><h3>Watch the spider</h3><p>The spider continues moving around the completed web and occasionally hangs and drops during a reset.</p></article>
+        <div class="feature-layout">
+          <figure class="control-shot">
+            <img src="web-it-up-controls.webp" alt="Web It Up Chrome extension controls for enabling the effect, choosing a duration, and clearing the web" width="600" height="874" loading="lazy">
+            <figcaption>The extension popup keeps every control in one place.</figcaption>
+          </figure>
+          <div class="cards">
+            <article class="card"><h3>Choose the pace</h3><p>Set how quickly the web fills the screen, from a one-minute demo to a three-hour call.</p></article>
+            <article class="card"><h3>Wave to reset</h3><p>Wave at the camera to clear the silk and start again, or use the manual reset in the toolbar.</p></article>
+            <article class="card"><h3>Control the effect</h3><p>Turn Web It Up on or off and adjust the timing from a compact Chrome extension popup.</p></article>
+            <article class="card"><h3>Watch the spider</h3><p>The spider continues moving around the completed web and occasionally hangs and drops during a reset.</p></article>
+          </div>
         </div>
         <div class="privacy"><h3>Designed with privacy in mind</h3><p>Gesture detection runs locally in the browser. Camera frames are not uploaded or stored, and the extension does not use analytics.</p></div>
       </section>
